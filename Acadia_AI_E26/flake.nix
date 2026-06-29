@@ -34,6 +34,11 @@
           pkgs.dbus.lib
           pkgs.fontconfig
           pkgs.freetype
+          pkgs.wayland
+          pkgs.xorg.xcbutilwm
+          pkgs.xorg.xcbutilimage
+          pkgs.xorg.xcbutilkeysyms
+          pkgs.xorg.xcbutilrenderutil
         ];
       });
     in
