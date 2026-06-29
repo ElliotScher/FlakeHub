@@ -91,9 +91,12 @@
             write_wrapper .venv/bin/python python-real
             write_wrapper .venv/bin/python3 python3-real
 
+            # 3. Automatically activate the virtual environment
+            source .venv/bin/activate
+
             echo ""
-            echo "            You can run your project using uv:"
-            echo "           uv run python src/detection/yolo.py"
+            echo "            You can run your project using:"
+            echo "                python src/detection/yolo.py"
             echo "============================================================"
           '';
         };
