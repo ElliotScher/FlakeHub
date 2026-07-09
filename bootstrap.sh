@@ -45,14 +45,28 @@ EOF
 git add "$HOST_DIR"
 git -c user.name="ElliotScher" -c user.email="ecscher84@gmail.com" commit -m "Add host $NEW_HOST"
 
-if git push; then
-  echo "Pushed $NEW_HOST to origin."
+echo
+read -r -p "Push $NEW_HOST to origin now? [y/N] " push_answer
+if [[ "$push_answer" =~ ^[Yy]$ ]]; then
+  if git push; then
+    echo "Pushed $NEW_HOST to origin."
+  else
+    echo "WARNING: git push failed (auth not set up yet?). The commit is local only - push manually once you're authenticated." >&2
+  fi
 else
-  echo "WARNING: git push failed (auth not set up yet?). The commit is local only - push manually once you're authenticated." >&2
+  echo "Skipped. The commit is local only - push manually later with: git push"
 fi
 
+REBUILD_CMD="sudo nixos-rebuild switch --flake $REPO_DIR#$NEW_HOST"
+
 echo
-echo "Done. Review the generated files in $HOST_DIR, then run:"
-echo
-echo "  sudo nixos-rebuild switch --flake $REPO_DIR#$NEW_HOST"
-echo
+echo "Review the generated files in $HOST_DIR before rebuilding."
+read -r -p "Run '$REBUILD_CMD' now? [y/N] " rebuild_answer
+if [[ "$rebuild_answer" =~ ^[Yy]$ ]]; then
+  sudo nixos-rebuild switch --flake "$REPO_DIR#$NEW_HOST"
+else
+  echo "Skipped. Run this when you're ready:"
+  echo
+  echo "  $REBUILD_CMD"
+  echo
+fi

@@ -4,10 +4,8 @@
   # ---------------------------
   # Nix settings
   # ---------------------------
-  nix.settings = lib.mkDefault {
-    experimental-features = [ "nix-command" "flakes" ];
-    auto-optimise-store = true;
-  };
+  nix.settings.experimental-features = lib.mkDefault [ "nix-command" "flakes" ];
+  nix.settings.auto-optimise-store = lib.mkDefault true;
 
   # NOTE: allowUnfree is set when pkgs is constructed in flake.nix, not here -
   # setting nixpkgs.config/overlays as a module option is deprecated once
@@ -104,17 +102,20 @@
   # ---------------------------
   # Shell Aliases (System-wide)
   # ---------------------------
-  environment.shellAliases = lib.mkDefault {
-    grep = "grep --color=auto";
-    fgrep = "fgrep --color=auto";
-    egrep = "egrep --color=auto";
-    gs = "git status";
-    gp = "git pull";
-    gco = "git checkout";
-    gb = "git branch";
-    fuck = "echo \"Fuck This Shit, Rebooting\" && sudo reboot now";
-    fuckoff = "echo \"Fuck This Shit, I'm Out\" && sudo shutdown now";
-  };
+  # NOTE: assigned per-key rather than as one mkDefault-wrapped blob - NixOS
+  # provides its own baseline environment.shellAliases definition, and a
+  # blob assignment loses to it wholesale (dropping every key, not just
+  # overlapping ones). Per-key assignment only competes on the exact same
+  # key, so it doesn't get excluded like that.
+  environment.shellAliases.grep = lib.mkDefault "grep --color=auto";
+  environment.shellAliases.fgrep = lib.mkDefault "fgrep --color=auto";
+  environment.shellAliases.egrep = lib.mkDefault "egrep --color=auto";
+  environment.shellAliases.gs = lib.mkDefault "git status";
+  environment.shellAliases.gp = lib.mkDefault "git pull";
+  environment.shellAliases.gco = lib.mkDefault "git checkout";
+  environment.shellAliases.gb = lib.mkDefault "git branch";
+  environment.shellAliases.fuck = lib.mkDefault "echo \"Fuck This Shit, Rebooting\" && sudo reboot now";
+  environment.shellAliases.fuckoff = lib.mkDefault "echo \"Fuck This Shit, I'm Out\" && sudo shutdown now";
 
   # ---------------------------
   # User account

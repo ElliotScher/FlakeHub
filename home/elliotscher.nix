@@ -45,9 +45,10 @@
     inputs.frc-nix.packages.${pkgs.stdenv.hostPlatform.system}.wpilib-utility
   ];
 
-  home.sessionVariables = lib.mkDefault {
-    SAL_USE_VCLPLUGIN = "kf5";
-  };
+  # NOTE: assigned per-key rather than as a blob - home-manager provides its
+  # own baseline home.sessionVariables definition, and a blob assignment
+  # loses to it wholesale. See the equivalent note in common/configuration.nix.
+  home.sessionVariables.SAL_USE_VCLPLUGIN = lib.mkDefault "kf5";
 
   gtk = lib.mkDefault {
     enable = true;
@@ -112,8 +113,12 @@
   # GNOME Settings
   # ---------------------------
   dconf.enable = lib.mkDefault true;
-  dconf.settings = lib.mkDefault {
-    "org/gnome/shell" = {
+  # NOTE: mkDefault is applied per dconf path (not to the whole dconf.settings
+  # blob) - a blob assignment risks being excluded wholesale if anything else
+  # ever defines dconf.settings. See the equivalent note further up for
+  # environment.shellAliases.
+  dconf.settings = {
+    "org/gnome/shell" = lib.mkDefault {
       enabled-extensions = [
         "dash-to-dock@micxgx.gmail.com"
         "appindicatorsupport@rgcjonas.gmail.com"
@@ -146,7 +151,7 @@
       ];
     };
 
-    "org/gnome/desktop/interface" = {
+    "org/gnome/desktop/interface" = lib.mkDefault {
       color-scheme = "prefer-dark";
 
       enable-hot-corners = true;
@@ -164,7 +169,7 @@
       icon-theme = "Adwaita";
     };
 
-    "org/gnome/desktop/background" = {
+    "org/gnome/desktop/background" = lib.mkDefault {
       picture-uri =
         "file:///home/elliotscher/Pictures/Backgrounds/farewelltolorien.jpg";
 
@@ -174,7 +179,7 @@
       picture-options = "zoom";
     };
 
-    "org/gnome/desktop/screensaver" = {
+    "org/gnome/desktop/screensaver" = lib.mkDefault {
       picture-uri =
         "file:///home/elliotscher/Pictures/Backgrounds/theonering.webp";
 
@@ -187,11 +192,11 @@
       lock-delay = lib.hm.gvariant.mkUint32 0;
     };
 
-    "org/gnome/desktop/session" = {
+    "org/gnome/desktop/session" = lib.mkDefault {
       idle-delay = lib.hm.gvariant.mkUint32 300;
     };
 
-    "org/gnome/settings-daemon/plugins/power" = {
+    "org/gnome/settings-daemon/plugins/power" = lib.mkDefault {
       sleep-inactive-ac-type = "suspend";
       sleep-inactive-ac-timeout = 3600;
 
@@ -199,37 +204,37 @@
       sleep-inactive-battery-timeout = 1800;
     };
 
-    "org/gnome/nautilus/preferences" = {
+    "org/gnome/nautilus/preferences" = lib.mkDefault {
       default-folder-viewer = "icon-view";
       show-hidden-files = true;
       show-delete-permanently = true;
       recursive-search = "always";
     };
 
-    "org/gnome/nautilus/icon-view" = {
+    "org/gnome/nautilus/icon-view" = lib.mkDefault {
       default-zoom-level = "standard";
     };
 
-    "org/gnome/desktop/wm/preferences" = {
+    "org/gnome/desktop/wm/preferences" = lib.mkDefault {
       button-layout = "appmenu:minimize,maximize,close";
       focus-mode = "click";
       num-workspaces = 4;
     };
 
-    "org/gnome/desktop/peripherals/keyboard" = {
+    "org/gnome/desktop/peripherals/keyboard" = lib.mkDefault {
       repeat = true;
       delay = lib.hm.gvariant.mkUint32 250;
       repeat-interval = lib.hm.gvariant.mkUint32 30;
     };
 
-    "org/gnome/desktop/peripherals/touchpad" = {
+    "org/gnome/desktop/peripherals/touchpad" = lib.mkDefault {
       tap-to-click = true;
       natural-scroll = true;
       two-finger-scrolling-enabled = true;
       click-method = "fingers";
     };
 
-    "org/gnome/shell/extensions/dash-to-dock" = {
+    "org/gnome/shell/extensions/dash-to-dock" = lib.mkDefault {
       dock-fixed = false;
       autohide = true;
       intellihide = true;
