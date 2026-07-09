@@ -262,7 +262,7 @@
         name = "ElliotScher";
         email = "ecscher84@gmail.com";
       };
-      safe.directory = "/home/elliotscher/Documents/Development/NixHub";
+      safe.directory = "/home/elliotscher/Documents/NixHub";
       init.defaultBranch = "main";
       credential = {
         helper = "!gh auth git-credential";

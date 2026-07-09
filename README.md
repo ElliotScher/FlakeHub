@@ -99,8 +99,8 @@ invocation needs the experimental features passed explicitly:
 nix --extra-experimental-features "nix-command flakes" run github:ElliotScher/NixHub#bootstrap
 ```
 
-This clones the repo (if not already present) to
-`~/Documents/Development/NixHub`, picks the next unused hostname, generates
+This clones the repo (if not already present) to `~/Documents/NixHub`,
+picks the next unused hostname, generates
 that machine's `hardware-configuration.nix`, scaffolds empty
 `hosts/<name>/configuration.nix`, `users.nix` (defaulting to
 `[ "elliotscher" ]`), and `home/elliotscher.nix` files, and commits + pushes
@@ -108,7 +108,7 @@ the new host to GitHub. It prints the exact rebuild command to run once
 you've reviewed the scaffolded files:
 
 ```
-sudo nixos-rebuild switch --flake ~/Documents/Development/NixHub#<name>
+sudo nixos-rebuild switch --flake ~/Documents/NixHub#<name>
 ```
 
 The script doesn't run the rebuild itself, so you get a chance to look over
@@ -155,7 +155,7 @@ since they build real system closures and boot a VM.
 ## Rebuilding an existing machine
 
 ```
-sudo nixos-rebuild switch --flake ~/Documents/Development/NixHub#<name>
+sudo nixos-rebuild switch --flake ~/Documents/NixHub#<name>
 ```
 
 No symlink to `/etc/nixos` is used - the repo's location is the single

@@ -1,5 +1,5 @@
 REPO_URL="https://github.com/ElliotScher/NixHub.git"
-REPO_DIR="${NIXHUB_DIR:-$HOME/Documents/Development/NixHub}"
+REPO_DIR="${NIXHUB_DIR:-$HOME/Documents/NixHub}"
 
 if [ ! -d "$REPO_DIR/.git" ]; then
   echo "Cloning NixHub into $REPO_DIR..."
