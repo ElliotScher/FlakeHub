@@ -43,6 +43,8 @@
     inputs.frc-nix.packages.${pkgs.stdenv.hostPlatform.system}.elastic-dashboard
     inputs.frc-nix.packages.${pkgs.stdenv.hostPlatform.system}.choreo
     inputs.frc-nix.packages.${pkgs.stdenv.hostPlatform.system}.wpilib-utility
+    
+    proton-vpn
   ];
 
   # NOTE: assigned per-key rather than as a blob - home-manager provides its
