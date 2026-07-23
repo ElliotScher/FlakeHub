@@ -12,41 +12,6 @@
 
   home.stateVersion = lib.mkDefault "26.05";
 
-  # NOTE: not wrapped in mkDefault - this is a list, so hosts can add to it
-  # with their own `home.packages = with pkgs; [ ... ];`, which concatenates
-  # rather than conflicts.
-  home.packages = with pkgs; [
-    brave
-
-    slack
-    discord
-
-    zotero
-
-    spotify
-
-    jetbrains-toolbox
-    jetbrains.clion
-    jetbrains.idea
-    jetbrains.pycharm
-    jetbrains.webstorm
-
-    gnomeExtensions.dash-to-dock
-    gnomeExtensions.appindicator
-    gnomeExtensions.gsconnect
-
-    # FRC packages (from local frc-nix flake)
-    inputs.frc-nix.packages.${pkgs.stdenv.hostPlatform.system}.advantagescope
-    inputs.frc-nix.packages.${pkgs.stdenv.hostPlatform.system}.pathplanner
-    inputs.frc-nix.packages.${pkgs.stdenv.hostPlatform.system}.sysid
-    inputs.frc-nix.packages.${pkgs.stdenv.hostPlatform.system}.glass
-    inputs.frc-nix.packages.${pkgs.stdenv.hostPlatform.system}.elastic-dashboard
-    inputs.frc-nix.packages.${pkgs.stdenv.hostPlatform.system}.choreo
-    inputs.frc-nix.packages.${pkgs.stdenv.hostPlatform.system}.wpilib-utility
-    
-    proton-vpn
-  ];
-
   # NOTE: assigned per-key rather than as a blob - home-manager provides its
   # own baseline home.sessionVariables definition, and a blob assignment
   # loses to it wholesale. See the equivalent note in common/configuration.nix.

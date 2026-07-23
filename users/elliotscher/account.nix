@@ -23,6 +23,35 @@
       inputs.claude-code-nix.packages.${pkgs.stdenv.hostPlatform.system}.default
       mpv
       tmux
+      proton-vpn
+
+      brave
+
+      slack
+      discord
+
+      zotero
+
+      spotify
+
+      jetbrains-toolbox
+      jetbrains.clion
+      jetbrains.idea
+      jetbrains.pycharm
+      jetbrains.webstorm
+
+      gnomeExtensions.dash-to-dock
+      gnomeExtensions.appindicator
+      gnomeExtensions.gsconnect
+
+      # FRC packages (from local frc-nix flake)
+      inputs.frc-nix.packages.${pkgs.stdenv.hostPlatform.system}.advantagescope
+      inputs.frc-nix.packages.${pkgs.stdenv.hostPlatform.system}.pathplanner
+      inputs.frc-nix.packages.${pkgs.stdenv.hostPlatform.system}.sysid
+      inputs.frc-nix.packages.${pkgs.stdenv.hostPlatform.system}.glass
+      inputs.frc-nix.packages.${pkgs.stdenv.hostPlatform.system}.elastic-dashboard
+      inputs.frc-nix.packages.${pkgs.stdenv.hostPlatform.system}.choreo
+      inputs.frc-nix.packages.${pkgs.stdenv.hostPlatform.system}.wpilib-utility
     ];
   };
 }
